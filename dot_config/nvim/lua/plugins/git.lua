@@ -11,4 +11,8 @@ return {
             { "<leader>gn", "<cmd> Neogit<CR>", desc = "Open Neogit" },
         },
     },
+    {
+        "lewis6991/gitsigns.nvim",
+        config = true,
+    },
 }

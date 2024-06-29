@@ -1,6 +1,7 @@
 return {
     {
         "neovim/nvim-lspconfig",
+        lazy=false,
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
@@ -32,7 +33,28 @@ return {
                     end,
                 },
             })
-        end
+            local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+            for type, icon in pairs(signs) do
+                local hl = "DiagnosticSign" .. type
+                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+            end
+        end,
+        keys = {
+            { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+            { "<leader>ld", vim.lsp.buf.definition(), desc = "Goto Definition" },
+            { "<leader>lr", vim.lsp.buf.references(), desc = "References" },
+            { "<leader>lI", vim.lsp.buf.implementation(), desc = "Goto Implementation" },
+            { "<leader>ly", vim.lsp.buf.type_definition(), desc = "Goto Type Definition" },
+            { "<leader>lD", vim.lsp.buf.declaration(), desc = "Goto Declaration" },
+            { "K", vim.lsp.buf.hover, desc = "Hover" },
+            { "<leader>lK", vim.lsp.buf.hover, desc = "Hover" },
+            { "<C-h>", vim.lsp.buf.signature_help, mode="i", desc = "Signature Help" },
+            { "<leader>lR", vim.lsp.buf.rename, desc = "Rename" },
+            { "<leader>lp", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
+            { "<leader>ln", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
+            { "<leader>le", vim.diagnostic.open_float, desc = "Show Error Messages" },
+            { "<leader>lq", vim.lsp.buf.code_action, desc = "Code action", mode = { "n", "v" }},
+        },
     },
     {
         "hrsh7th/nvim-cmp",
