@@ -147,6 +147,7 @@ return {
             "SmiteshP/nvim-navic",
             "nvim-tree/nvim-web-devicons",
         },
+        opts = {},
     },
     {
         'mrjones2014/smart-splits.nvim',

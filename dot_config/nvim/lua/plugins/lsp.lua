@@ -1,7 +1,8 @@
 return {
     {
         "neovim/nvim-lspconfig",
-        lazy=false,
+        -- event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+        lazy = false,
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
@@ -40,13 +41,14 @@ return {
             end
         end,
         keys = {
+            { "<leader>l", "", desc = "Lsp" },
             { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-            { "<leader>ld", vim.lsp.buf.definition(), desc = "Goto Definition" },
-            { "<leader>lr", vim.lsp.buf.references(), desc = "References" },
-            { "<leader>lI", vim.lsp.buf.implementation(), desc = "Goto Implementation" },
-            { "<leader>ly", vim.lsp.buf.type_definition(), desc = "Goto Type Definition" },
+            { "<leader>ld", function() require('telescope.builtin').lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition" },
+            { "<leader>lr", function() require('telescope.builtin').lsp_references() end, desc = "References" },
+            { "<leader>lI", function() require('telescope.builtin').lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
+            { "<leader>ly", function() require('telescope.builtin').lsp_type_definitions({ reuse_win = true }) end, desc = "Goto Type Definition" },
             { "<leader>lD", vim.lsp.buf.declaration(), desc = "Goto Declaration" },
-            { "K", vim.lsp.buf.hover, desc = "Hover" },
+            -- { "K", vim.lsp.buf.hover, desc = "Hover" },
             { "<leader>lK", vim.lsp.buf.hover, desc = "Hover" },
             { "<C-h>", vim.lsp.buf.signature_help, mode="i", desc = "Signature Help" },
             { "<leader>lR", vim.lsp.buf.rename, desc = "Rename" },
@@ -54,6 +56,7 @@ return {
             { "<leader>ln", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
             { "<leader>le", vim.diagnostic.open_float, desc = "Show Error Messages" },
             { "<leader>lq", vim.lsp.buf.code_action, desc = "Code action", mode = { "n", "v" }},
+            { "<leader>lh", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch to Header/Source" },
         },
     },
     {
@@ -97,6 +100,24 @@ return {
                 })
             }
         end
+    },
+    {
+        "nvimtools/none-ls.nvim",
+        opts = function(_, opts)
+            local nls = require("null-ls")
+            opts.sources = vim.list_extend(opts.sources or {}, {
+                nls.builtins.diagnostics.cmake_lint,
+            })
+        end,
+    },
+    {
+        "mfussenegger/nvim-lint",
+        opts = {
+            linters_bt_ft = {
+                cmake = { "cmakelint" },
+            },
+        },
+        config = function() end,
     },
 }
 

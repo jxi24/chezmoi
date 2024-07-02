@@ -9,6 +9,7 @@ opt.number = true
 opt.relativenumber = true
 opt.smartindent = true
 opt.shiftwidth = 4
+opt.shiftround = true
 opt.pumblend = 10
 opt.pumheight = 10
 opt.termguicolors = true
@@ -18,6 +19,18 @@ opt.confirm = true
 
 -- Sync clipboard between OS and nvim
 opt.clipboard = 'unnamedplus'
+-- Work around slow startup with finding its own clipboard
+-- vim.g.clipboard = {
+--   name = 'OSC 52',
+--   copy = {
+--     ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+--     ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+--   },
+--   paste = {
+--     ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+--     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+--   },
+-- }
 
 -- completion options
 opt.completeopt = "menu,menuone,noselect"
@@ -58,6 +71,7 @@ opt.splitbelow = true
 opt.inccommand = 'split'
 
 opt.scrolloff = 10
+opt.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkwait175'
 
 opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
