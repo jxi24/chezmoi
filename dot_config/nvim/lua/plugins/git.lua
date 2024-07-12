@@ -26,7 +26,10 @@ return {
     },
     {
         "lewis6991/gitsigns.nvim",
-        config = true,
+        lazy = false,
+        opts = {
+            current_line_blame = true,
+        },
     },
     {
         "sindrets/diffview.nvim",
