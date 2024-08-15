@@ -20,7 +20,7 @@ return {
             },
             daily_notes = {
                 date_format = "%Y-%m-%d",
-                template = "daily"
+                template = "~/Documents/Obsidian/Work/templates/daily"
             },
             completion = {
                 nvim_cmp = true,
@@ -51,7 +51,7 @@ return {
                 vim.fn.jobstart({"xdg-open", url})
             end,
             templates = {
-                folder = "templates",
+                folder = "~/Documents/Obsidian/Work/templates",
                 date_format = "%Y-%m-%d",
                 time_format = "%H:%M",
                 substitutions = {

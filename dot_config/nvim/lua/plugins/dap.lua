@@ -49,7 +49,7 @@ return {
             require('mason-nvim-dap').setup({
                 automatic_installation = true,
                 handlers = {},
-                ensure_installed = {},
+                ensure_installed = {'python'},
             })
 
             vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
